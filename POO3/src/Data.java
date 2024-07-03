@@ -4,23 +4,25 @@ public class Data {
 
     public Data(int dia, int mes, int ano) throws DataInvalidaException {
         if (dia < 1 || dia > 31) {
-            throw new DataInvalidaException("Dia invalido");
+            throw new DataInvalidaException("DIA INVÁLIDO");
         }
         if (mes < 1 || mes > 12) {
-            throw new DataInvalidaException("Mes invalido");
+            throw new DataInvalidaException("MÊS INVÁLIDO");
         }
         if (ano < 1900 || ano > 2023) {
-            throw new DataInvalidaException("Ano invalido");
+            throw new DataInvalidaException("ANO INVÁLIDO");
         }
 
         // Verificação específica para cada mês
         if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) {
-            throw new DataInvalidaException("Dia invalido para o mes especificado");
+            throw new DataInvalidaException("DIA INVÁLIDO PARA O MÊS ESPECIFICADO");
         }
 
-        this.dia = dia;
-        this.mes = mes;
-        this.ano = ano;
+        this.dia =dia;
+        this.mes =mes;
+        this.ano =ano;
+
+
     }
 
     public String toString(){

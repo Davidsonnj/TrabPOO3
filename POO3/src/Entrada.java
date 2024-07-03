@@ -75,13 +75,13 @@ public class Entrada {
                 System.out.println(op);
 
                 while (op < 0 || op > 3) {
-                    System.out.println("OPÇÃO INVÁLIDA. Tente novamente: \n");
+                    System.out.println("OPÇÃO INVÁLIDA. Tente novamente. \n");
                     op = this.lerInteiro(msg);
                 }
 
                 return op;
             } catch (NumberFormatException | StringIndexOutOfBoundsException e){
-                System.out.println("Entrada inválida. Digite um número válido.");
+                System.out.println("ENTRADA INVÁLIDA. Digite um número válido.");
             }
         }
     }
@@ -106,7 +106,7 @@ public class Entrada {
 
                 return op;
             } catch (NumberFormatException | StringIndexOutOfBoundsException e){
-                System.out.println("Entrada inválida. Digite um número válido.");
+                System.out.println("ENTRADA INVÁLIDA. Digite um número válido.");
             }
         }
 
@@ -119,7 +119,9 @@ public class Entrada {
      * @param s: Um objeto da classe Sistema
      */
     public void cadPessoa(Sistema s) {
+
         while(true){
+
             try {
                 String login = this.lerLinha("\nEscolha um login: ");
 
@@ -130,6 +132,7 @@ public class Entrada {
                 String nome = this.lerLinha("Digite seu nome: ");
                 String senha = this.lerLinha("Digite sua senha: ");
                 String cpf = this.lerLinha("Digite seu CPF: ");
+
                 int dia = this.lerInteiro("Digite seu dia de nascimento: ");
                 int mes = this.lerInteiro("Digite seu mês de nascimento: ");
                 int ano = this.lerInteiro("Digite seu ano de nascimento: ");
@@ -138,12 +141,15 @@ public class Entrada {
                 s.novaPessoa(p);
                 System.out.println(p);
                 break;
+
             } catch (NumberFormatException | StringIndexOutOfBoundsException e){
-                System.out.println("Alguma entrada inválida. Tente se cadastrar novamente.");
+                System.out.println("ENTRADA INVÁLIDA. Cadastre-se novamente.");
+
             } catch (CPFInvalidoException e){
-                System.out.println("CPF inválido, " + e.getMessage());
+                System.out.println("CPF INVÁLIDO: " + e.getMessage());
+
             } catch (DataInvalidaException e){
-                System.out.println("Data inválido: " + e.getMessage());
+                System.out.println("DATA INVÁLIDA: " + e.getMessage());
             }
         }
     }
@@ -165,10 +171,12 @@ public class Entrada {
                 s.novaEmpresa(e);
                 System.out.println(e);
                 break;
-            }catch (CNPJInvalidoException e){
-                System.out.println("CNPJ inválido, " + e.getMessage());
+
+            } catch (CNPJInvalidoException e){
+                System.out.println("CNPJ INVÁLIDO: " + e.getMessage());
+
             } catch (StringIndexOutOfBoundsException e){
-                System.out.println("Alguma entrada inválida. Tente se cadastrar novamente.");
+                System.out.println("ENTRADA INVÁLIDA. Cadastre-se novamente.");
             }
 
         }
@@ -179,7 +187,7 @@ public class Entrada {
         String login = this.lerLinha("\nEscolha um login: ");
 
         while (s.buscarUsuario(login) == null) {
-            login = this.lerLinha("Usuário inexistente. Escolha outro login: ");
+            login = this.lerLinha("USUÁRIO INEXISTENTE. Escolha outro login: ");
         }
 
         Usuario u = s.buscarUsuario(login);
@@ -213,14 +221,21 @@ public class Entrada {
 
         String login = this.lerLinha("\nEscolha um usuário para seguir: ");
 
-        while (s.buscarUsuario(login) == null) {
-            login = this.lerLinha("USUÁRIO INEXISTENTE. Escolha outro usuário: ");
-        }
+        while (true) {
+            if (s.buscarUsuario(login) == null) {
+                login = this.lerLinha("USUÁRIO INEXISTENTE. Escolha outro usuário: ");
+                break;
+            }
 
-        Usuario user = s.buscarUsuario(login);
-        u.seguir(user);
-        System.out.println("\n> " + u + " AGORA SEGUE " + user);
-    }
+            if (s.buscarUsuario(login) == u) {
+                login = this.lerLinha("USUÁRIO INVÁLIDO. Não é possível seguir a si próprio. \nEscolha outro usuário: ");
+                break;
+            }
+        }
+            Usuario user = s.buscarUsuario(login);
+            u.seguir(user);
+            System.out.println("\n> " + u + " AGORA SEGUE " + user);
+        }
 
     public void postar(Usuario u) {
         while (true) {

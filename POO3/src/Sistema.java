@@ -37,6 +37,7 @@ public class Sistema {
 
     public void listarUsuarios(){
         System.out.println("\n**          USUÁRIOS DISPONÍVEIS        **");
+
         for(Pessoa pessoa : pessoas){
             System.out.println(pessoa);
         }
