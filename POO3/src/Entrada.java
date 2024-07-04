@@ -217,25 +217,35 @@ public class Entrada {
     }
 
     public void seguir(Sistema s, Usuario u){
-        s.listarUsuarios();
-
-        String login = this.lerLinha("\nEscolha um usuário para seguir: ");
-
         while (true) {
-            if (s.buscarUsuario(login) == null) {
-                login = this.lerLinha("USUÁRIO INEXISTENTE. Escolha outro usuário: ");
+            try {
+                s.listarUsuarios();
+
+                String login = this.lerLinha("\nEscolha um usuário para seguir: ");
+
+                Usuario user = s.buscarUsuario(login);
+                if (user != null && user != u) {
+                    u.seguir(user);
+                    System.out.println("\n> " + u + " AGORA SEGUE " + user);
+                } else {
+                    if (user == u) {
+                        System.out.println("USUÁRIO INVÁLIDO. Não é possível seguir a si próprio. Tente novamente.");
+                    }
+                    if (user == null) {
+                        System.out.println("USUÁRIO INEXISTENTE. Tente novamente. ");
+                    }
+                }
                 break;
+            } catch (SeguirAlguemQueJaSegueException e){
+                System.out.println(e.getMessage());
+                break;
+            } catch (StringIndexOutOfBoundsException e ) {
+                System.out.println("Entrada de inválida ");
+                // Solicitar que o usuário insira novamente os valores numéricos
             }
 
-            if (s.buscarUsuario(login) == u) {
-                login = this.lerLinha("USUÁRIO INVÁLIDO. Não é possível seguir a si próprio. \nEscolha outro usuário: ");
-                break;
-            }
         }
-            Usuario user = s.buscarUsuario(login);
-            u.seguir(user);
-            System.out.println("\n> " + u + " AGORA SEGUE " + user);
-        }
+    }
 
     public void postar(Usuario u) {
         while (true) {

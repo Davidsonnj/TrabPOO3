@@ -6,8 +6,8 @@ public class Empresa extends Usuario {
 
     public Empresa(String login, String nome, String senha, String cnpj) throws CNPJInvalidoException{
         super(login, nome, senha);
-        if (!cnpj.matches("\\d+")) {
-            throw new CNPJInvalidoException("CNPJ deve conter apenas números.");
+        if (!cnpj.matches("[\\d.-]+")) {
+            throw new CNPJInvalidoException("CNPJ deve conter apenas números, pontos e hífen.");
         }
         this.cnpj = cnpj;
         System.out.println("\n**   NOVA EMPRESA CADASTRADA NO SISTEMA    **");

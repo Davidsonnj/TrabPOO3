@@ -8,8 +8,8 @@ public class Pessoa extends Usuario {
 
     public Pessoa(String login, String nome, String senha, String cpf, int dia, int mes, int ano) throws CPFInvalidoException, DataInvalidaException {
         super(login, nome, senha);
-        if (!cpf.matches("\\d+")) {
-            throw new CPFInvalidoException("CPF deve conter apenas números.");
+        if (!cpf.matches("[\\d.-]+")) {
+            throw new CPFInvalidoException("CPF deve conter apenas números, pontos e traços.");
         }
         this.cpf = cpf;
         this.nasc = new Data(dia, mes, ano);

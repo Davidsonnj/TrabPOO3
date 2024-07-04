@@ -39,7 +39,10 @@ public abstract class Usuario {
         }
     }
 
-    public void seguir(Usuario u){
+    public void seguir(Usuario u)throws SeguirAlguemQueJaSegueException{
+        if (this.seguindo.contains(u)) {
+            throw new SeguirAlguemQueJaSegueException("Você já está seguindo esse usuário. Tente novamente.");
+        }
         this.seguindo.add(u);
         u.seguidores.add(this);
     }
