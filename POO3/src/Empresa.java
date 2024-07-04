@@ -1,4 +1,7 @@
-public class Empresa extends Usuario {
+import java.io.BufferedWriter;
+import java.io.IOException;
+
+public class Empresa extends Usuario implements Salvavel {
 
     private String cnpj, endereco, site, descricao;
     private Area area;
@@ -11,6 +14,15 @@ public class Empresa extends Usuario {
         }
         this.cnpj = cnpj;
         System.out.println("\n**   NOVA EMPRESA CADASTRADA NO SISTEMA    **");
+    }
+
+    public void salvarArq(BufferedWriter b) throws IOException
+    {
+        b.write(this.login + "\n");
+        b.write(this.nome + "\n");
+        b.write(this.cnpj + "\n");
+
+        salvarArq(b);
     }
 
     public String toString() {

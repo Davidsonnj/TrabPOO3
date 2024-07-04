@@ -1,6 +1,9 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class Pessoa extends Usuario {
+
+public class Pessoa extends Usuario implements Salvavel {
 
     private String cpf, bio;
     private Data nasc;
@@ -15,6 +18,17 @@ public class Pessoa extends Usuario {
         this.nasc = new Data(dia, mes, ano);
         this.interessados = new ArrayList<>();
         System.out.println("\n**   NOVA PESSOA CADASTRADA NO SISTEMA    **");
+    }
+
+    public void salvarArq(BufferedWriter b) throws IOException
+    {
+        b.write(this.login + "\n");
+        b.write(this.nome + "\n");
+        b.write(this.senha + "\n");
+        b.write(this.cpf + "\n");
+        b.write(this.nasc + "\n");
+
+        salvarArq(b);
     }
 
     public String toString(){

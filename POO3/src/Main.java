@@ -19,7 +19,7 @@ public class Main {
             }
 
             op = io.menu1();
-
         }
+        s.salvarArq(s);
     }
 }

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class Usuario {
+public abstract class Usuario implements Salvavel {
 
     protected String login, nome, senha;
     protected Local cidade;
