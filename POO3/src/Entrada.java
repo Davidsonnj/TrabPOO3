@@ -19,14 +19,17 @@ public class Entrada {
      * Se o arquivo não existir, define que o Scanner vai ler da entrada padrão (teclado)
      */
     public Entrada() {
-        try {
+        /*try {
             // Se houver um arquivo dados.txt na pasta corrente, o Scanner vai ler dele.
-            this.input = new Scanner(new FileInputStream("dados.txt"));
+            this.input = new Scanner(new FileInputStream(""));
             // NAO ALTERE A LOCALICAÇÃO DO ARQUIVO!!
         } catch (FileNotFoundException e) {
             // Caso contrário, vai ler do teclado.
             this.input = new Scanner(System.in);
-        }
+        }*/
+        //Usar somente esse scanner.
+        this.input = new Scanner(System.in);
+
     }
 
     /**
@@ -186,33 +189,33 @@ public class Entrada {
     public void login(Sistema s){
         String login = this.lerLinha("\nEscolha um login: ");
 
-        while (s.buscarUsuario(login) == null) {
-            login = this.lerLinha("USUÁRIO INEXISTENTE. Escolha outro login: ");
-        }
+        if (s.buscarUsuario(login) != null) {
 
-        Usuario u = s.buscarUsuario(login);
-        String senha = this.lerLinha("Digite sua senha: ");
+            Usuario u = s.buscarUsuario(login);
+            String senha = this.lerLinha("Digite sua senha: ");
 
-        if(u.validarAcesso(senha)){
-            System.out.println("\n**    USUÁRIO LOGADO COM SUCESSO: " + u +"    **");
-            int op2 = this.menu2(s, u);
+            if (u.validarAcesso(senha)) {
+                System.out.println("\n**    USUÁRIO LOGADO COM SUCESSO: " + u + "    **");
+                int op2 = this.menu2(s, u);
 
-            while (op2 != 0) {
-                if (op2 == 1) {
-                    this.seguir(s, u);
+                while (op2 != 0) {
+                    if (op2 == 1) {
+                        this.seguir(s, u);
+                    }
+                    if (op2 == 2) {
+                        this.postar(u);
+                    }
+                    if (op2 == 3) {
+                        this.feed(u);
+                    }
+
+                    op2 = this.menu2(s, u);
                 }
-                if (op2 == 2) {
-                    this.postar(u);
-                }
-                if (op2 == 3) {
-                    this.feed(u);
-                }
-
-                op2 = this.menu2(s, u);
+            } else {
+                System.out.println("\n**   LOGIN INCOMPLETO. ACESSO INVÁLIDO.    **");
             }
-        }
-        else {
-            System.out.println("\n**   LOGIN INCOMPLETO. ACESSO INVÁLIDO.    **");
+        } else{
+            System.out.println("USUÁRIO INEXISTENTE. Escolha outro login: ");
         }
     }
 
@@ -240,8 +243,7 @@ public class Entrada {
                 System.out.println(e.getMessage());
                 break;
             } catch (StringIndexOutOfBoundsException e ) {
-                System.out.println("Entrada de inválida ");
-                // Solicitar que o usuário insira novamente os valores numéricos
+                System.out.println("Entrada inválida ");
             }
 
         }

@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
@@ -14,6 +15,20 @@ public class Empresa extends Usuario implements Salvavel {
         }
         this.cnpj = cnpj;
         System.out.println("\n**   NOVA EMPRESA CADASTRADA NO SISTEMA    **");
+    }
+
+    public Empresa(BufferedReader r) throws CNPJInvalidoException{
+        super(r);
+        try {
+            String cnpj = r.readLine();
+            if (!cnpj.matches("[\\d.-]+")) {
+                throw new CNPJInvalidoException("CNPJ deve conter apenas números, pontos e hífen.");
+            }
+            this.cnpj = cnpj;
+            System.out.println("\n**   NOVA EMPRESA CADASTRADA NO SISTEMA    **");
+        } catch (IOException e){
+            System.out.println("ERRO AO LER ARQUIVO");
+        }
     }
 
     public void salvarArq(BufferedWriter b) throws IOException {

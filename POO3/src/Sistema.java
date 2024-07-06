@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Sistema {
@@ -80,14 +77,62 @@ public class Sistema {
         }
     }
 
-    public void read_file(BufferedReader r){
+    public void read_file() {
         try {
-            FileWriter r = new FileWriter("dados.txt");
+            FileReader fr = new FileReader("dados.txt");
+            BufferedReader r = new BufferedReader(fr);
 
-        }
-        catch (IOException e) {
-            System.out.println("ERRO AO SALVAR ARQUIVO.");
+            String line = r.readLine();
+
+            while (line.charAt(0) != 'F') {
+                char c = line.charAt(0);
+
+                try {
+
+                    if (c == 'E') {
+                        Empresa e = new Empresa(r);
+                        this.novaEmpresa(e);
+                    } else if (c == 'P') {
+                        Pessoa p = new Pessoa(r);
+                        this.novaPessoa(p);
+                    }else if (c == 'S'){
+                        String login = r.readLine();
+                        Usuario user = this.buscarUsuario(login);
+                        String login2 = r.readLine();
+                        Usuario user2 = this.buscarUsuario(login2);
+                        if(user != null && user2 != null){
+                            user.seguir(user2);
+                            System.out.println("\n> " + user + " AGORA SEGUE " + user2);
+                        } else if (user == user2){
+                                System.out.println("USUÁRIO INVÁLIDO. Não é possível seguir a si próprio. Tente novamente.");
+                        } else {
+                                System.out.println("USUÁRIO INEXISTENTE. Tente novamente. ");
+                        }
+
+                    }
+
+                } catch (CPFInvalidoException e) {
+                    System.out.println("CPF INVÁLIDO: " + e.getMessage());
+                } catch (DataInvalidaException e) {
+                    System.out.println("DATA INVÁLIDA: " + e.getMessage());
+                } catch (CNPJInvalidoException e) {
+                    System.out.println("CNPJ INVÁLIDO: " + e.getMessage());
+                }
+
+                line = r.readLine();
+            }
+
+            this.listarUsuarios();
+
+            r.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("ERRO: ARQUIVO NÃO ENCONTRADO.");
+        } catch (IOException e) {
+            System.out.println("ERRO AO LER O ARQUIVO.");
+        } catch (SeguirAlguemQueJaSegueException e) {
+            System.out.println(e.getMessage());
         }
     }
+
 
 }

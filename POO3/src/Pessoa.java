@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,8 +17,25 @@ public class Pessoa extends Usuario implements Salvavel {
         }
         this.cpf = cpf;
         this.nasc = new Data(dia, mes, ano);
-        this.interessados = new ArrayList<>();
+        this.interesses = new ArrayList<>();
         System.out.println("\n**   NOVA PESSOA CADASTRADA NO SISTEMA    **");
+    }
+
+    public Pessoa(BufferedReader r) throws CPFInvalidoException, DataInvalidaException{
+        super(r);
+        try {
+            String cpf = r.readLine();
+            if (!cpf.matches("[\\d.-]+")) {
+                throw new CPFInvalidoException("CPF deve conter apenas números, pontos e traços.");
+            }
+            this.cpf = cpf;
+            this.nasc = new Data(r);
+            this.interesses = new ArrayList<>();
+            System.out.println("\n**   NOVA PESSOA CADASTRADA NO SISTEMA    **");
+
+        } catch (IOException e) {
+            System.out.println("ERRO AO LER USUARIO.");
+        }
     }
 
     public void salvarArq(BufferedWriter b) throws IOException {

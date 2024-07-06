@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,10 +15,27 @@ public abstract class Usuario implements Salvavel {
         this.login = login;
         this.nome = nome;
         this.senha = senha;
+
         this.posts = new ArrayList<>();
         this.seguindo = new ArrayList<>();
         this.seguidores = new ArrayList<>();
         this.interessados = new ArrayList<>();
+    }
+
+    public Usuario(BufferedReader r) {
+        try {
+            this.login = r.readLine();
+            this.nome = r.readLine();
+            this.senha = r.readLine();
+
+            this.posts = new ArrayList<>();
+            this.seguindo = new ArrayList<>();
+            this.seguidores = new ArrayList<>();
+            this.interessados = new ArrayList<>();
+
+        } catch (IOException e) {
+            System.out.println("ERRO AO LER USUARIO.");
+        }
     }
 
     public abstract String toString();

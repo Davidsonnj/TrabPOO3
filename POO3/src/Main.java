@@ -5,6 +5,8 @@ public class Main {
         Entrada io = new Entrada();
         Sistema s = new Sistema();
 
+        s.read_file();
+
         int op = io.menu1();
 
         while (op != 0) {
