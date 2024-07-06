@@ -266,7 +266,8 @@ public class Entrada {
                 break; // Postagem criada com sucesso, sair do loop
 
             } catch (DataInvalidaException e) {
-                System.out.println("Data inválida: " + e.getMessage());
+                System.out.println("TENTE POSTAR A FOTO NOVAMENTE - Data inválida : " + e.getMessage());
+                break;
                 // Solicitar que o usuário insira novamente a data
             } catch (NumberFormatException | StringIndexOutOfBoundsException e ) {
                 System.out.println("Entrada de número inválida: " + e.getMessage());
