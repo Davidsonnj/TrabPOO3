@@ -106,7 +106,7 @@ public class Sistema {
                         } else if (user == user2){
                                 System.out.println("USUÁRIO INVÁLIDO. Não é possível seguir a si próprio. Tente novamente.");
                         } else {
-                                System.out.println("USUÁRIO INEXISTENTE. Tente novamente. ");
+                                System.out.println("ERRO AO SEGUIR : USUÁRIO INEXISTENTE. ");
                         }
 
                     }
