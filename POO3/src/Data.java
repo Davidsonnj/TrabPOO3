@@ -41,7 +41,7 @@ public class Data{
             if (mes < 1 || mes > 12) {
                 throw new DataInvalidaException("MÊS INVÁLIDO");
             }
-            if (ano < 1900 || ano > 2023) {
+            if (ano < 1900 || ano > 2024) {
                 throw new DataInvalidaException("ANO INVÁLIDO");
             }
 
