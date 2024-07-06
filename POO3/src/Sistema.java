@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -60,11 +61,29 @@ public class Sistema {
             FileWriter f = new FileWriter("dados.txt");
             BufferedWriter b = new BufferedWriter(f);
 
-            b.write(this.salvaveis.size() + "\n");
-
             for (Salvavel p : this.salvaveis ) {
                 p.salvarArq(b);
             }
+
+            for (Salvavel p : this.salvaveis) {
+                if (p instanceof Usuario) {
+                    ((Usuario) p).salvarSeguimento(b);
+                }
+            }
+
+            b.write("F");
+
+            b.close();
+        }
+        catch (IOException e) {
+            System.out.println("ERRO AO SALVAR ARQUIVO.");
+        }
+    }
+
+    public void read_file(BufferedReader r){
+        try {
+            FileWriter r = new FileWriter("dados.txt");
+
         }
         catch (IOException e) {
             System.out.println("ERRO AO SALVAR ARQUIVO.");

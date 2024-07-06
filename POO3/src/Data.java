@@ -1,4 +1,7 @@
-public class Data {
+import java.io.BufferedWriter;
+import java.io.IOException;
+
+public class Data{
 
     private int dia, mes, ano;
 
@@ -18,12 +21,25 @@ public class Data {
             throw new DataInvalidaException("DIA INVÁLIDO PARA O MÊS ESPECIFICADO");
         }
 
-        this.dia =dia;
-        this.mes =mes;
-        this.ano =ano;
+        this.dia = dia;
+        this.mes = mes;
+        this.ano = ano;
 
 
     }
+
+    public int getDia(){
+        return dia;
+    }
+
+    public int getMes(){
+        return mes;
+    }
+
+    public int getAno(){
+        return ano;
+    }
+
 
     public String toString(){
         return String.format("%02d/%02d/%04d", dia, mes, ano);

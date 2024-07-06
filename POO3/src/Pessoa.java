@@ -20,15 +20,18 @@ public class Pessoa extends Usuario implements Salvavel {
         System.out.println("\n**   NOVA PESSOA CADASTRADA NO SISTEMA    **");
     }
 
-    public void salvarArq(BufferedWriter b) throws IOException
-    {
-        b.write(this.login + "\n");
-        b.write(this.nome + "\n");
-        b.write(this.senha + "\n");
-        b.write(this.cpf + "\n");
-        b.write(this.nasc + "\n");
+    public void salvarArq(BufferedWriter b) throws IOException {
+        try {
+            b.write("P \n");
+            super.salvarArq(b);
+            b.write(this.cpf + "\n");
+            b.write(this.nasc.getDia() + "\n");
+            b.write(this.nasc.getMes() + "\n");
+            b.write(this.nasc.getAno() + "\n");
 
-        salvarArq(b);
+        } catch (IOException e){
+            System.out.println("Erro ao salvar arquivo de Pessoa.");
+        }
     }
 
     public String toString(){

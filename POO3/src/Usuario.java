@@ -1,3 +1,5 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class Usuario implements Salvavel {
@@ -58,6 +60,24 @@ public abstract class Usuario implements Salvavel {
     public void feed(){
         for(Usuario seguidor : this.seguindo){
             seguidor.mostrarPosts();
+        }
+    }
+
+    public void salvarSeguimento(BufferedWriter b) throws IOException {
+        for (Usuario seg : this.seguindo) {
+            b.write("S\n");
+            b.write(this.login + "\n");
+            b.write(seg.getLogin() + "\n");
+        }
+    }
+
+    public void salvarArq(BufferedWriter b) throws IOException {
+        try {
+            b.write(this.login + "\n");
+            b.write(this.nome + "\n");
+            b.write(this.senha + "\n");
+        } catch (IOException e){
+            System.out.println("Erro ao salvar arquivo de Usuário.");
         }
     }
 }
