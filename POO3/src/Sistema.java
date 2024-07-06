@@ -100,7 +100,7 @@ public class Sistema {
                         Usuario user = this.buscarUsuario(login);
                         String login2 = r.readLine();
                         Usuario user2 = this.buscarUsuario(login2);
-                        if(user != null && user2 != null){
+                        if(user != null && user2 != null && user != user2){
                             user.seguir(user2);
                             System.out.println("\n> " + user + " AGORA SEGUE " + user2);
                         } else if (user == user2){
