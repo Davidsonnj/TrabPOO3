@@ -121,14 +121,10 @@ public class Entrada {
      */
     public void cadPessoa(Sistema s) {
 
-        while(true){
+        try {
+            String login = this.lerLinha("\nEscolha um login: ");
 
-            try {
-                String login = this.lerLinha("\nEscolha um login: ");
-
-                while (s.buscarUsuario(login) != null) {
-                    login = this.lerLinha("USUÁRIO JÁ EXISTENTE. Escolha outro login: ");
-                }
+            if (s.buscarUsuario(login) == null) {
 
                 String nome = this.lerLinha("Digite seu nome: ");
                 String senha = this.lerLinha("Digite sua senha: ");
@@ -141,28 +137,28 @@ public class Entrada {
                 Pessoa p = new Pessoa(login, nome, senha, cpf, dia, mes, ano);
                 s.novaPessoa(p);
                 System.out.println(p);
-                break;
 
-            } catch (NumberFormatException | StringIndexOutOfBoundsException e){
-                System.out.println("ENTRADA INVÁLIDA. Cadastre-se novamente.");
-
-            } catch (CPFInvalidoException e){
-                System.out.println("CPF INVÁLIDO: " + e.getMessage());
-
-            } catch (DataInvalidaException e){
-                System.out.println("DATA INVÁLIDA: " + e.getMessage());
             }
+            else {
+                System.out.println("USUÁRIO JÁ EXISTENTE. Tente novamente. ");
+            }
+
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e){
+            System.out.println("ENTRADA INVÁLIDA. Cadastre-se novamente.");
+
+        } catch (CPFInvalidoException e){
+            System.out.println("Tente novamente. CPF INVÁLIDO: " + e.getMessage());
+
+        } catch (DataInvalidaException e){
+            System.out.println("Tente novamente. DATA INVÁLIDA: " + e.getMessage());
         }
     }
 
     public void cadEmpresa(Sistema s) {
-        while(true) {
-            try {
-                String login = this.lerLinha("\nEscolha um login: ");
+        try {
+            String login = this.lerLinha("\nEscolha um login: ");
 
-                while (s.buscarUsuario(login) != null) {
-                    login = this.lerLinha("USUÁRIO JÁ EXISTENTE. Escolha outro login: ");
-                }
+            if (s.buscarUsuario(login) == null) {
 
                 String nome = this.lerLinha("Digite seu nome: ");
                 String senha = this.lerLinha("Digite sua senha: ");
@@ -171,49 +167,53 @@ public class Entrada {
                 Empresa e = new Empresa(login, nome, senha, cnpj);
                 s.novaEmpresa(e);
                 System.out.println(e);
-                break;
-
-            } catch (CNPJInvalidoException e){
-                System.out.println("CNPJ INVÁLIDO: " + e.getMessage());
-
-            } catch (StringIndexOutOfBoundsException e){
-                System.out.println("ENTRADA INVÁLIDA. Cadastre-se novamente.");
+            } else{
+                System.out.println("USUÁRIO JÁ EXISTENTE. Tente novamente");
             }
 
+        } catch (CNPJInvalidoException e){
+            System.out.println("CNPJ INVÁLIDO: " + e.getMessage());
+
+        } catch (StringIndexOutOfBoundsException e){
+            System.out.println("ENTRADA INVÁLIDA. Cadastre-se novamente.");
         }
+
     }
 
-
     public void login(Sistema s){
-        String login = this.lerLinha("\nEscolha um login: ");
+        try {
+            String login = this.lerLinha("\nEscolha um login: ");
 
-        if (s.buscarUsuario(login) != null) {
+            if (s.buscarUsuario(login) != null) {
 
-            Usuario u = s.buscarUsuario(login);
-            String senha = this.lerLinha("Digite sua senha: ");
+                Usuario u = s.buscarUsuario(login);
+                String senha = this.lerLinha("Digite sua senha: ");
 
-            if (u.validarAcesso(senha)) {
-                System.out.println("\n**    USUÁRIO LOGADO COM SUCESSO: " + u + "    **");
-                int op2 = this.menu2(s, u);
+                if (u.validarAcesso(senha)) {
+                    System.out.println("\n**    USUÁRIO LOGADO COM SUCESSO: " + u + "    **");
+                    int op2 = this.menu2(s, u);
 
-                while (op2 != 0) {
-                    if (op2 == 1) {
-                        this.seguir(s, u);
+                    while (op2 != 0) {
+                        if (op2 == 1) {
+                            this.seguir(s, u);
+                        }
+                        if (op2 == 2) {
+                            this.postar(u);
+                        }
+                        if (op2 == 3) {
+                            this.feed(u);
+                        }
+
+                        op2 = this.menu2(s, u);
                     }
-                    if (op2 == 2) {
-                        this.postar(u);
-                    }
-                    if (op2 == 3) {
-                        this.feed(u);
-                    }
-
-                    op2 = this.menu2(s, u);
+                } else {
+                    System.out.println("\n**   LOGIN INCOMPLETO. ACESSO INVÁLIDO.    **");
                 }
             } else {
-                System.out.println("\n**   LOGIN INCOMPLETO. ACESSO INVÁLIDO.    **");
+                System.out.println("USUÁRIO INEXISTENTE. ");
             }
-        } else{
-            System.out.println("USUÁRIO INEXISTENTE. Escolha outro login: ");
+        }catch (StringIndexOutOfBoundsException e ){
+            System.out.println("ENTRADA INVÁLIDA. Faça login novamente.");
         }
     }
 
