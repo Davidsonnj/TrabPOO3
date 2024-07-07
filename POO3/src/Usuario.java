@@ -67,7 +67,7 @@ public abstract class Usuario implements Salvavel, Comparable<Usuario> {
         u.seguidores.add(this);
     }
 
-    public void mostrarPosts(ArrayList<Postagem>posts){
+    public void mostrarPosts(){
         Collections.sort(posts);
         for(Postagem post : this.posts){
             post.mostrarDados();
@@ -76,8 +76,14 @@ public abstract class Usuario implements Salvavel, Comparable<Usuario> {
     }
 
     public void feed(){
+        ArrayList<Postagem> todosPosts = new ArrayList<>();
         for(Usuario seguidor : this.seguindo){
-            seguidor.mostrarPosts(posts);
+            todosPosts.addAll(seguidor.posts);
+        }
+
+        Collections.sort(todosPosts);
+        for(Postagem post : todosPosts){
+            post.mostrarDados();
         }
     }
 

@@ -16,20 +16,20 @@ public class Postagem implements Comparable<Postagem>{
 
     public void mostrarDados(){
         System.out.println("*");
-        System.out.println(this.usuario.nome + " (" + this.usuario.seguidores.size() + "seguidores)");
+        System.out.println(this.usuario.nome + " (" + this.usuario.seguidores.size() + " seguidores)");
         System.out.println(this.foto);
         System.out.println(this.legenda);
         System.out.println(this.d.toString());
     }
     public int compareTo(Postagem p) {
-        int comparaData = this.d.compareTo(p.d);
-        if (comparaData != 0) {
-            return comparaData;
+        int comparacaoData = this.d.compareTo(p.d);
+        if (comparacaoData != 0) {
+            return comparacaoData;
         }
 
-        int comparaSeguidores = Integer.compare(p.usuario.seguidores.size(), this.usuario.seguidores.size());
-        if (comparaSeguidores != 0) {
-            return comparaSeguidores;
+        int comparacaoSeguidores = Integer.compare(p.usuario.seguidores.size(), this.usuario.seguidores.size());
+        if (comparacaoSeguidores != 0) {
+            return comparacaoSeguidores;
         }
 
         return this.usuario.nome.compareTo(p.usuario.nome);

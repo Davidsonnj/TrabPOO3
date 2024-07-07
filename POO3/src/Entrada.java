@@ -1,8 +1,6 @@
-
 import javax.xml.transform.Source;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Entrada {
