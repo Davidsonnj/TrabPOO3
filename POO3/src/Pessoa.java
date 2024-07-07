@@ -12,8 +12,8 @@ public class Pessoa extends Usuario implements Salvavel {
 
     public Pessoa(String login, String nome, String senha, String cpf, int dia, int mes, int ano) throws CPFInvalidoException, DataInvalidaException {
         super(login, nome, senha);
-        if (!cpf.matches("[\\d.-]+")) {
-            throw new CPFInvalidoException("CPF deve conter apenas números, pontos e traços.");
+        if (!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
+            throw new CPFInvalidoException("CPF deve estar no formato ###.###.###-## e conter apenas números, pontos e hífen.");
         }
         this.cpf = cpf;
         this.nasc = new Data(dia, mes, ano);
@@ -25,8 +25,8 @@ public class Pessoa extends Usuario implements Salvavel {
         super(r);
         try {
             String cpf = r.readLine();
-            if (!cpf.matches("[\\d.-]+")) {
-                throw new CPFInvalidoException("CPF deve conter apenas números, pontos e traços.");
+            if (!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
+                throw new CPFInvalidoException("CPF deve estar no formato ###.###.###-## e conter apenas números, pontos e hífen.");
             }
             this.cpf = cpf;
             this.nasc = new Data(r);

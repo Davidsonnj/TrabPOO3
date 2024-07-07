@@ -3,7 +3,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.sql.SQLOutput;
 
-public class Data{
+public class Data implements Comparable<Data> {
 
     private int dia, mes, ano;
 
@@ -71,9 +71,20 @@ public class Data{
         return ano;
     }
 
+    public int compareTo(Data d) {
+        if (this.ano < d.getAno()) return 1;
+        if (this.ano > d.getAno()) return -1;
+
+        if (this.mes < d.getMes()) return 1;
+        if (this.mes > d.getMes()) return -1;
+
+        if (this.dia < d.getDia()) return 1;
+        if (this.dia > d.getDia()) return -1;
+
+        return 0;
+    }
 
     public String toString(){
         return String.format("%02d/%02d/%04d", dia, mes, ano);
     }
-
 }

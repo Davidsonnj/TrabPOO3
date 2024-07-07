@@ -2,8 +2,9 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
-public abstract class Usuario implements Salvavel {
+public abstract class Usuario implements Salvavel, Comparable<Usuario> {
 
     protected String login, nome, senha;
     protected Local cidade;
@@ -48,10 +49,9 @@ public abstract class Usuario implements Salvavel {
         return this.senha.equals(pwd);
     }
 
-
-    public void postarFoto(String foto, String legenda, Data hoje, String senha){
+    public void postarFoto(String foto, String legenda, Data hoje, String senha, Usuario usuario){
         if(validarAcesso(senha)){
-            this.posts.add(new Postagem(foto, legenda, hoje));
+            this.posts.add(new Postagem(foto, legenda, hoje, usuario));
             System.out.println("POSTAGEM ADICIONADA COM SUCESSO!");
         }
         else {
@@ -67,21 +67,25 @@ public abstract class Usuario implements Salvavel {
         u.seguidores.add(this);
     }
 
-    public void mostrarPosts(){
+    public void mostrarPosts(ArrayList<Postagem>posts){
+        Collections.sort(posts);
         for(Postagem post : this.posts){
-            System.out.println("—");
-            System.out.println(this);
             post.mostrarDados();
         }
+        System.out.println("*");
     }
 
     public void feed(){
         for(Usuario seguidor : this.seguindo){
-            seguidor.mostrarPosts();
+            seguidor.mostrarPosts(posts);
         }
     }
 
-    public void salvarSeguimento(BufferedWriter b) throws IOException {
+    public int compareTo(Usuario u){
+       return this.nome.compareTo(u.nome);
+    }
+
+    public void salvarSeguindo(BufferedWriter b) throws IOException {
         for (Usuario seg : this.seguindo) {
             b.write("S\n");
             b.write(this.login + "\n");

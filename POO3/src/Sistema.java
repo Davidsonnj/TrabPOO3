@@ -64,7 +64,7 @@ public class Sistema {
 
             for (Salvavel p : this.salvaveis) {
                 if (p instanceof Usuario) {
-                    ((Usuario) p).salvarSeguimento(b);
+                    ((Usuario) p).salvarSeguindo(b);
                 }
             }
 

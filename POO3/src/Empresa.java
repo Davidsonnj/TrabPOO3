@@ -10,8 +10,8 @@ public class Empresa extends Usuario implements Salvavel {
 
     public Empresa(String login, String nome, String senha, String cnpj) throws CNPJInvalidoException{
         super(login, nome, senha);
-        if (!cnpj.matches("[\\d.-]+")) {
-            throw new CNPJInvalidoException("CNPJ deve conter apenas números, pontos e hífen.");
+        if (!cnpj.matches("\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}")) {
+            throw new CNPJInvalidoException("CNPJ deve estar no formato ##.###.###/####-## e conter apenas números, pontos, hífen e /.");
         }
         this.cnpj = cnpj;
         System.out.println("\n**   NOVA EMPRESA CADASTRADA NO SISTEMA    **");
@@ -21,8 +21,8 @@ public class Empresa extends Usuario implements Salvavel {
         super(r);
         try {
             String cnpj = r.readLine();
-            if (!cnpj.matches("[\\d.-]+")) {
-                throw new CNPJInvalidoException("CNPJ deve conter apenas números, pontos e hífen.");
+            if (!cnpj.matches("\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}")) {
+                throw new CNPJInvalidoException("CNPJ deve estar no formato ##.###.###/####-## e conter apenas números, pontos, hífen e /.");
             }
             this.cnpj = cnpj;
             System.out.println("\n**   NOVA EMPRESA CADASTRADA NO SISTEMA    **");

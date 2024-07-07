@@ -262,7 +262,7 @@ public class Entrada {
 
                 Data d = new Data(dia, mes, ano); // Pode lançar DataInvalidaException
 
-                u.postarFoto(foto, legenda, d, senha);
+                u.postarFoto(foto, legenda, d, senha, u);
                 break; // Postagem criada com sucesso, sair do loop
 
             } catch (DataInvalidaException e) {
